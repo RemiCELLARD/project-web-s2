@@ -1,0 +1,36 @@
+<%page args="listBriques, listCouleur, allBriques, needQuantite, listTaille=None"/>
+                <div class="table-responsive mt-3 mb-2">
+                    <table class="table table-sm table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>
+                                    <div class="input-group-sm">
+                                        <select class="custom-select input-sm" name="briqueCouleur" onchange="srcBriques();" id="couleur">
+                                            <option value="couleur" selected>Couleur</option>
+                                            % if len(listCouleur) > 0:
+                                                %for couleur in listCouleur:
+                                                    <option value="${couleur[0]}" style="color: rgb(${couleur[2]})">${couleur[1]}</option>
+                                                %endfor
+                                            %endif
+                                        </select>
+                                    </div>                            
+                                </th>
+                                <th>Taille</th>
+                                <th>
+                                    Prix
+                                    <button class="btn btn-primary btn-sm float-right ml-3" onmousedown="srcBriques('prix');"><i id="btnPrix" value="up" class="fas fa-sort-up"></i></button>
+                                </th>
+                                %if needQuantite:
+                                    <th>Quantité</th>
+                                %endif
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listBriques">
+                            <%include file="block-line-brique.html" args="listBriques=listBriques, listTaille=listTaille, allBriques=allBriques, needQuantite=needQuantite, listCouleur=listCouleur"/>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="listBriques" class="row justify-content-center"></div>

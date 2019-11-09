@@ -1,0 +1,11 @@
+<%page args="listing, idSelect=None"/>
+% if len(listing) > 0:
+            <select class="form-control" id="elementListing_${idSelect}">
+                <option value="element" disabled>Element</option>
+                % for element in listing:
+                    <option value="${element[0]}">${element[0]} - ${element[1]}</option>
+                % endfor
+            </select>
+% else:
+    <div class="alert alert-danger">Pas d'élément :c</div>  
+% endif 

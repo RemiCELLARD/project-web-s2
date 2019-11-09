@@ -1,0 +1,113 @@
+<%inherit file="../base.html"/>
+
+<%block name="page_content">
+    <p class="mb-0"><span class="h3">Gestion</span></p>
+    <hr class="mt-1 mb-3"/>
+    <div class="form-check form-check-inline">
+        <p>1. Je choisis l'action que je veux faire :</p>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="choixAction" id="textAjouter" value="add">
+        <label class="form-check-label" for="textAjouter">Ajouter</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="choixAction" id="textSupprimer" value="delete">
+        <label class="form-check-label" for="textSupprimer">Supprimer</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="choixAction" id="textModifier" value="edit">
+        <label class="form-check-label" for="textModifier">Modifier</label>
+    </div>
+    <div id="deleteBox" style="display: none;">
+        <p>2. Suppression :</p>
+        <div class="alert alert-warning pb-0">
+            <p><i class="fas fa-exclamation-circle"></i> Pour les pièces, veuillez vous rendre sur la page des Briques</p>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-4 col-md-3">
+                <select class="form-control" id="selectCategory" onchange="getListElement();">
+                    <option value="categorie" disabled selected>Catégorie</option>
+                    <option value="boite">Boite</option>
+                    <option value="theme">Theme</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-7" id="listElement"></div>
+            <div style="display: none;" id="btnGo" class="col-12 col-sm-2 col-md-2">
+                <button class="btn btn-primary" onclick="runDelete();">Go</button>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" id="addBox">
+        <p>2. Ajout :</p>
+        <div class="alert alert-warning pb-0 m-0">
+            <p><i class="fas fa-exclamation-circle"></i> Pour les pièces, veuillez vous rendre sur la page des Briques ou de la boite concerné.</p>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-4 col-md-4 mt-2">
+                <select class="form-control" id="selectCategoryAdd">
+                    <option value="categorie" disabled selected>Catégorie</option>
+                    <option value="boite">Boite</option>
+                    <option value="theme">Theme</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-4 col-md-4 mt-2">
+                <input type="text" id="elementName" name="elementName" class="form-control" placeholder="Nom"/>
+            </div>
+            <div class="col-12 col-sm-4 col-md-4 mt-2">
+                <input type="text" id="elementImgUrl" name="elementImgUrl" class="form-control" placeholder="URL de votre image"/>
+            </div>
+            <div class="col-12 mt-2">
+                <input type="text" id="elementDescription" name="elementDescription" class="form-control" placeholder="Description"/>
+            </div>
+            <p class="col-12 mt-3 mb-0">Si vous créer une boite, merci de remplir les éléments ci-dessous (sinon, laissez vide) :</p>
+            <div class="col-12 col-sm-6 col-md-6 mt-2">
+                <select class="form-control" name="elementTheme" id="elementTheme">
+                    <option value="theme" disabled>Choisir le thème</option>
+                    % if len(listTheme) > 0:
+                        % for theme in listTheme :
+                            <option value="${theme[0]}">${theme[1]}</option>
+                        % endfor
+                    % endif
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mt-2">
+                <select class="form-control" name="elementAge" id="elementAge">
+                    <option value="age" disabled>Choisir l'âge</option>
+                    <% 
+                        myList = listAge[0][0][1:-1]
+                        myList = myList.split(',')
+                    %>
+                    % for catAge in myList :
+                        <% catAge = catAge[1:-1] %>
+                        <option value="${catAge}">${catAge} ans</option>
+                    % endfor
+                </select>
+            </div>
+            <div class="col-12 mt-2" id="listElement"></div>
+            <div id="btnGo" class="col-12">
+                <button class="col-12 btn btn-primary" onclick="runAdd();">Créer</button>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;" id="editBox">
+        <p>2. Modification :</p>
+        <div class="alert alert-warning pb-0 m-0 mb-2">
+            <p><i class="fas fa-exclamation-circle"></i> Pour les pièces, veuillez passer par l'action Supprimer et Ajouter. Merci de votre compréhension</p>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-4 col-md-3">
+                <select class="form-control" id="selectEditCategory" onchange="getTheListElement();">
+                    <option value="categorie" disabled selected>Catégorie</option>
+                    <option value="boite">Boite</option>
+                    <option value="theme">Theme</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-7" id="listEditElement"></div>
+            <div style="display: none;" id="btnEditGo" class="col-12 col-sm-2 col-md-2">
+                <button class="btn btn-primary" onclick="srcEditPage();">Editer</button>
+            </div>
+        </div>
+        <hr class="mt-4 mb-3">
+        <div class="row" id="editBoxForm"></div>
+    </div>
+</%block>

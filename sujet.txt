@@ -1,0 +1,5 @@
+site d'un amateur de Lego :
+On veut pouvoir avoir le contenu de plusieurs "boites" de légo : pour chacune, il faut conserver la liste des pièces (chacune décrite
+par sa référence, sa couleur, son coût unitaire, le nombre de "plots" de fixation.
+L'interface permet de rajouter une boîte avec son contenu, mais de chercher dans quelle boite est utilisée quelle pièce.
+Elle permettra de savoir combien il y a d'une référence de pièce en tout (dans toutes les boîtes) 

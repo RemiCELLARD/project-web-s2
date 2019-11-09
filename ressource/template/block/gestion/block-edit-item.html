@@ -1,0 +1,47 @@
+<%page args="listTheme, listAge, listing"/>
+    <div class="col-12 col-sm-4 col-md-4 mt-2">
+        <input type="text" id="edit_elementName" name="edit_elementName" value="${listing[0][1]}" class="form-control" placeholder="Nom"/>
+    </div>
+    <div class="col-12 col-sm-4 col-md-4 mt-2">
+        <input type="text" id="edit_elementImgUrl" name="edit_elementImgUrl" value="${listing[0][2]}" class="form-control" placeholder="URL de votre image"/>
+    </div>
+    <div class="col-12 mt-2">
+        <input type="text" id="edit_elementDescription" name="edit_elementDescription" value="${listing[0][3]}" class="form-control" placeholder="Description"/>
+    </div>
+    %if len(listing[0]) > 4:
+        <p class="col-12 mt-3 mb-0">Si vous modifier une boite, merci de remplir les éléments ci-dessous (sinon, laissez vide) :</p>
+        <div class="col-12 col-sm-6 col-md-6 mt-2">
+            <select class="form-control" name="edit_elementTheme" id="edit_elementTheme">
+                <option value="theme" disabled>Modifier le thème</option>
+                % if len(listTheme) > 0:
+                    % for theme in listTheme :
+                        %if listing[0][4] == theme[0]:
+                            <option value="${theme[0]}" selected>${theme[1]}</option>
+                        %else:
+                            <option value="${theme[0]}">${theme[1]}</option>
+                        %endif
+                    % endfor
+                % endif
+            </select>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 mt-2">
+            <select class="form-control" name="edit_elementAge" id="edit_elementAge">
+                <option value="age" disabled>Modifier l'âge</option>
+                <% 
+                    myList = listAge[0][0][1:-1]
+                    myList = myList.split(',')
+                %>
+                % for catAge in myList :
+                    <% catAge = catAge[1:-1] %>
+                    %if listing[0][5] == catAge:
+                        <option value="${catAge}" selected>${catAge} ans</option>
+                    %else:
+                        <option value="${catAge}">${catAge} ans</option>
+                    %endif
+                % endfor
+            </select>
+        </div>
+    %endif
+    <div id="btnEditSubmitGo" class="col-12 mt-3">
+        <button class="col-12 btn btn-primary" onclick="runAddEdit();">Sauvegarder</button>
+    </div>

@@ -1,0 +1,34 @@
+<%page args="data"/>
+<div class="modal-header">
+    <h5 class="modal-title" id="boiteInfoLabel">${data['boiteInfo'][0][1]} - <cite title="${data['boiteInfo'][0][1]} ">${data['boiteInfo'][0][5]}</cite></h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="media media-img-lego mb-3">
+        <img class="align-self-center img-fluid" src="${data['boiteInfo'][0][3]}" alt=":(">
+        <div class="media-body ml-2">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th class="col-4">Tranche d'âge</th>
+                            <td class="col-8">${data['boiteInfo'][0][2]}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-4">Description</th>
+                            <td class="col-8">${data['boiteInfo'][0][4]}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <h5>Listes des briques :</h5>
+    <input type="hidden" id="boiteID" name="boiteID"  value="${data['boiteInfo'][0][0]}">
+    <%include file="block-table-briques.html" args="listBriques=data['listBriques'], listCouleur=data['listCouleur'], allBriques=data['allBriques'],needQuantite=True"/>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+</div>

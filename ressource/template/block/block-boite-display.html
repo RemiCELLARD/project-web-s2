@@ -1,0 +1,19 @@
+% if len(listBoites) > 0:
+    % for e in listBoites:
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="card card-lego-boite text-center">
+                            <img src="${e[3]}" class="card-img-top img-fluid" alt=":(">
+                            <div class="card-body">
+                                <h5 class="card-title mb-0">${e[1]}</h5>
+                                <p class="text-muted mb-1">${e[2]}</p>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#boiteInfo" onclick="showBoxContent('${e[0]}');">En savoir plus</button>
+                            </div>
+                        </div>
+                    </div>
+    % endfor
+% else:
+    <div class="col-12 alert alert-danger text-center">
+        <h1 class="alert-heading"><i class="fas fa-sad-tear"></i></h1>
+        <p class="h3">Ooops, aucune boite trouvé dans nos registre</p>
+    </div>
+% endif

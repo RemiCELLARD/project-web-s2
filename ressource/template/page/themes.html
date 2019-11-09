@@ -1,0 +1,14 @@
+<%inherit file="../base.html"/>
+
+<%block name="page_content">
+    <% 
+        tri = ["up","down"]
+        if sort == 'up' or sort == None :
+            tri = tri[::-1]       
+    %>
+                <p class="mb-0"><span class="h3">Thèmes</span><a class="float-right" href="themes?sort=${tri[0]}"><i class="fas fa-sort-alpha-${tri[1]}"></i></a></p>
+                <hr class="mt-1 mb-2"/>
+                <div id="list-theme">
+                    <%include file="../block/block-theme-display.html" args="listThemes=listThemes"/>
+                </div>
+</%block>

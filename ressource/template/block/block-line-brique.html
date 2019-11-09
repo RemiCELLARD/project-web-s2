@@ -1,0 +1,65 @@
+<%page args="listBriques, needQuantite, listCouleur, listTaille, allBriques=None"/>
+<tr>
+    %if needQuantite:
+        <td colspan="5">
+            ${str(allBriques.decode('ascii'))}
+        </td>
+        <td><input type="number" min="1" value="1" id="quantiteBriques" class="form-control" placeholder="Nb"></td>
+        <% jsFunct = "addBricktoBox();"  %>
+    %else:
+        <td>-</td>
+        <td><input type="text" id="nomBriques" class="form-control" placeholder="Nom"></td>
+        <td>
+            <select class="custom-select input-sm" name="addBriqueCouleur" id="addCouleur">
+                <option value="couleur" selected>Couleur</option>
+                % if len(listCouleur) > 0:
+                    %for couleur in listCouleur:
+                        <option value="${couleur[0]}" style="color: rgb(${couleur[2]});">${couleur[1]}</option>
+                    %endfor
+                %endif
+            </select>
+        </td>
+        <td>
+            <select class="custom-select input-sm" name="addBriqueTaille" id="addTaille">
+                <option value="Taille" selected>Taille</option>
+                % if len(listTaille) > 0:
+                    %for Taille in listTaille:
+                        <option value="${Taille[0]}">${Taille[1]}x${Taille[2]}x${Taille[3]}</option>
+                    %endfor
+                %endif
+            </select>
+        </td>
+        <td><input type="number" step="0.01" min="0" id="prixBriques" class="form-control" placeholder="0.00"></td>
+        <% jsFunct = "addBrick();"  %>
+    %endif
+    <td>
+        <button class="btn-sm btn-success" onclick="${jsFunct}"><i class="fas fa-plus"></i></button>
+    </td>
+</tr>
+% if len(listBriques) > 0:
+    % for piece in listBriques:
+        <% 
+        if needQuantite:
+            jsRun = "sqlDelete('liste_brique', {}, {});".format(piece[7], piece[0])
+        else:
+            jsRun = "sqlDelete('pieces',{});".format(piece[0])
+        %>
+                            <tr>
+                                <th scope="row">${piece[0]}</th>
+                                <td>${piece[1]}</td>
+                                <td><i style="color: rgb(${piece[2]})" class="fas fa-stop"></i> ${piece[3]}</td>
+                                <td>${piece[4]}</td>
+                                <td>${piece[5]}€</td>
+                                %if needQuantite:
+                                    <td>${piece[6]}</td>
+                                %endif
+                                <td>
+                                    <a href="#" onclick="${jsRun}" class="badge badge-danger p-2"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+    % endfor
+% else:
+    <tr class="text-danger">
+        <td colspan="7" class="text-center"><i class="fas fa-sad-tear"></i> Ooops, aucune brique trouvé dans nos registre</td>
+    </tr>        
+% endif

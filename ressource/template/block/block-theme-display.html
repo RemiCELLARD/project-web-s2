@@ -1,0 +1,14 @@
+% for e in listThemes:
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="media media-img-lego">
+                            <img src="${e[2]}" class="align-self-center img-fluid mr-3" alt="...">
+                            <div class="media-body">
+                            <h5 class="mt-0">${e[1]}</h5>
+                            <p>${e[3]}</p>
+                            <a href="/boites?theme_id=${e[0]}" class="btn btn-primary">Voir les boîtes associés</a>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+% endfor

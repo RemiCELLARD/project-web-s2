@@ -1,0 +1,60 @@
+<%inherit file="../base.html"/>
+<%block name="page_content">
+                <p class="mb-0"><span class="h3">Boîtes</span><button class="float-right btn-sm btn-primary" onmousedown="srcBoite('alphabet');"><i id="btnSort" value="up" class="fas fa-sort-alpha-up"></i></button></p>
+                <hr class="mt-1 mb-3"/>
+                <div class="row pr-1 pl-1">
+                    <div class="form-group col-12 col-sm-5 col-md-4 mb-0">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-primary text-light" id="srcIcon"><i class="fas fa-box"></i></span>
+                            </div>
+                            <input type="text" disabled class="form-control" value="" id="search_boite_nom" onkeyup="srcBoite();" placeholder="Nom de la boite (soon)" aria-describedby="srcIcon">
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-sm-3 col-md-2 mb-0">
+                        <select class="form-control" name="categorieAge" onchange="srcBoite();" id="categorieAge">
+                            <option value="age">Choisir l'âge</option>
+                            <% 
+                                myList = listAge[0][0][1:-1]
+                                myList = myList.split(',')
+                            %>
+                            % for catAge in myList :
+                                <% catAge = catAge[1:-1] %>
+                                <option value="${catAge}">${catAge} ans</option>
+                            % endfor
+                        </select>
+                    </div>
+                    <div class="form-group col-12 col-sm-3 col-md-2 mb-0">
+                        <select class="form-control" name="nomTheme" onchange="srcBoite();" id="nomTheme">
+                            <option value="theme">Choisir le thème</option>
+                            % if len(listTheme) > 0:
+                                % for theme in listTheme :
+                                    <option value="${theme[0]}">${theme[1]}</option>
+                                % endfor
+                            % endif
+                        </select>
+                    </div>
+                </div>
+                <hr class="mt-0 mb-2"/>
+                <div id="listBoites" class="row justify-content-center">
+                    <%include file="../block/block-boite-display.html" args="listBoites=listBoites"/>
+                </div>
+                <div class="modal fade" id="boiteInfo" tabindex="-1" role="dialog" aria-labelledby="boiteInfoLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content" id="boiteContent">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="boiteInfoLabel">Oooohhh</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Veuillez attendre le chargement de la boite svp. Si cela ne marche pas, veuillez rafraîchir la page
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</%block>
